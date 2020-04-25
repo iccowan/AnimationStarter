@@ -1,23 +1,29 @@
 <html>
-<head>
-    <title>Animated ScatterPlots</title>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <head>
+        <title>Animated ScatterPlots</title>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <link href="css.css" rel="stylesheet" type="text/css" />
     </head>
-<body>
-    <h2 id="banner"></h2>
-    <div>
-    <button id="fvh">Final vs HW Mean</button>
-    <button id="hvq">HW Mean vs Quiz mean</button>
-    <button id="tvf">Test Mean vs Final</button>
-    <button id="tvq">Test Mean vs Quiz Mean</button>
-    </div>
-    <svg id="scatter"></svg>
-    
-    
-    
-    
-    
+    <body>
+        <h2 id="banner"></h2>
+        <div>
+            <button id="fvh">Final vs HW Mean</button>
+            <button id="hvq">HW Mean vs Quiz mean</button>
+            <button id="tvf">Test Mean vs Final</button>
+            <button id="tvq">Test Mean vs Quiz Mean</button>
+        </div>
+        <svg id="scatter"></svg>
+        
+        <div class="hidden" id="tooltip">
+            <img id="pengImg" />
+            <hr />
+            <p><i>Summary:</i></p>
+            <p id="finalScore"></p>
+            <p id="avgHW"></p>
+            <p id="avgQuiz"></p>
+            <p id="avgTest"></p>
+        </div>
+    </body>
     
     <script src="scatterPlots.js"></script>
-    </body>
 </html>

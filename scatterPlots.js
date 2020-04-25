@@ -84,19 +84,22 @@ var createAxes = function(screen,margins,graph,
     
     // Draw the axes
     var axes = d3.select(target)
-        .append("g")
+        .append("g");
+    
     axes.append("g")
         .attr("transform","translate("+margins.left+","
              +(margins.top+graph.height)+")")
         .call(xAxis)
-        .classed("axis", true)
+        .classed("x-axis", true);
+    
     axes.append("g")
         .attr("transform","translate("+margins.left+","
              +(margins.top)+")")
         .call(yAxis)
-        .classed("axis", true)
+        .classed("y-axis", true);
 }
 
+// Sets the titles of the axes
 var setAxesTitles = function(screen, margins, graph, target, xTitle, yTitle) {
     var labels = d3.select(target)
                    .append("g")
@@ -119,11 +122,19 @@ var setAxesTitles = function(screen, margins, graph, target, xTitle, yTitle) {
         .attr("transform", "rotate(-90)")
 }
 
-var clearAxes = function(target) {
-    // Select and remove the points on the graph
-    d3.select(target)
-        .selectAll(".axis")
-        .remove();
+var updateAxes = function(target, xScale, yScale) {
+    var xAxis = d3.axisBottom(xScale);
+    var yAxis = d3.axisLeft(yScale);
+    
+    d3.select(".x-axis")
+        .transition()
+        .duration(1000)
+        .call(xAxis)
+    
+    d3.select(".y-axis")
+        .transition()
+        .duration(1000)
+        .call(yAxis)
     
     d3.select(target)
         .selectAll(".labels")
@@ -187,8 +198,7 @@ var initButtons = function(students,target,xScale,yScale,graph,margins) {
             .range([graph.height, 0])
     
         // Clear and redraw the axes for the data
-        clearAxes(target);
-        createAxes(screen,margins,graph,target,xScale,yScale);
+        updateAxes(target, xScale, yScale);
         setAxesTitles(screen, margins, graph, target, "Final", "Homework");
         
         // Draw the scatter plot
@@ -211,8 +221,7 @@ var initButtons = function(students,target,xScale,yScale,graph,margins) {
             .range([graph.height, 0])
     
         // Clear and redraw the axes for the data
-        clearAxes(target);
-        createAxes(screen,margins,graph,target,xScale,yScale);
+        updateAxes(target, xScale, yScale);
         setAxesTitles(screen, margins, graph, target, "Homework", "Quiz");
         
         drawScatter(students,target,
@@ -234,8 +243,7 @@ var initButtons = function(students,target,xScale,yScale,graph,margins) {
             .range([graph.height, 0])
     
         // Clear and redraw the axes for the data
-        clearAxes(target);
-        createAxes(screen,margins,graph,target,xScale,yScale);
+        updateAxes(target, xScale, yScale);
         setAxesTitles(screen, margins, graph, target, "Test", "Final");
         
         drawScatter(students,target,
@@ -257,8 +265,7 @@ var initButtons = function(students,target,xScale,yScale,graph,margins) {
             .range([graph.height, 0])
     
         // Clear and redraw the axes for the data
-        clearAxes(target);
-        createAxes(screen,margins,graph,target,xScale,yScale);
+        updateAxes(target, xScale, yScale);
         setAxesTitles(screen, margins, graph, target, "Test", "Quiz");
         
         drawScatter(students,target,

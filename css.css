@@ -13,6 +13,7 @@ button {
 }
 button:hover {
     background-color: lightgray;
+    cursor: pointer;
 }
 
 circle:hover {

@@ -273,7 +273,7 @@ var setBanner = function(msg) {
 }
 
 // Get the penguin data and begin the program
-var penguinPromise = d3.json("/classData.json");
+var penguinPromise = d3.json("classData.json");
 penguinPromise.then(function(penguins) {
     console.log("class data",penguins);
     initGraph("#scatter",penguins);

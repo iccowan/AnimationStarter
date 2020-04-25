@@ -63,7 +63,21 @@ var drawScatter = function(students,target,
             
             // tooltip
             d3.select("#tooltip").classed("hidden", true);
-        });
+        })
+        .exit()
+        .remove();
+    
+    d3.select(target).select(".graph")
+        .selectAll("circle")
+        .transition()
+        .duration(1000)
+         .attr("cx",function(student) {
+        return xScale(getMeanGrade(student[xProp]));    
+        })
+        .attr("cy",function(student) {
+            return yScale(getMeanGrade(student[yProp]));  
+        })
+        .attr("r",4);
 }
 
 // Clears the scatter plot
@@ -186,7 +200,6 @@ var initButtons = function(students,target,xScale,yScale,graph,margins) {
     // Draw the final vs. homework on click
     d3.select("#fvh")
     .on("click",function() {
-        clearScatter(target);
         
         // Setup the scales for the appropriate data
         xScale = d3.scaleLinear()
@@ -209,7 +222,6 @@ var initButtons = function(students,target,xScale,yScale,graph,margins) {
     // Draw the final vs. quiz on click
     d3.select("#hvq")
     .on("click",function() {
-        clearScatter(target);
         
         // Setup the scales for the appropriate data
         xScale = d3.scaleLinear()
@@ -231,7 +243,6 @@ var initButtons = function(students,target,xScale,yScale,graph,margins) {
     // Draw the test vs final on click
     d3.select("#tvf")
     .on("click",function() {
-        clearScatter(target);
         
         // Setup the scales for the appropriate data
         xScale = d3.scaleLinear()
@@ -253,7 +264,6 @@ var initButtons = function(students,target,xScale,yScale,graph,margins) {
     // Draw the test vs quiz on click
     d3.select("#tvq")
     .on("click",function() {
-        clearScatter(target);
         
         // Setup the scales for the appropriate data
         xScale = d3.scaleLinear()
@@ -280,7 +290,7 @@ var setBanner = function(msg) {
 }
 
 // Get the penguin data and begin the program
-var penguinPromise = d3.json("classData.json");
+var penguinPromise = d3.json("https://iccowan.github.io/AnimationStarter/classData.json");
 penguinPromise.then(function(penguins) {
     console.log("class data",penguins);
     initGraph("#scatter",penguins);
